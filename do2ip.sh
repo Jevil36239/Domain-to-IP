@@ -28,6 +28,9 @@ fi
 n=1
 IFS=$'\r\n'
 for line in $(cat $file); do
+	if [[ 10 == 0 && $n > 0 ]]; then
+		sleep 0.3
+	fi
 	cekbaris=$(cat $file | wc -l)
 	ekse $file $n &
 	n=$[$n+1]
