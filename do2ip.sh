@@ -14,12 +14,6 @@ echo ""
 
 
 read -p "Masukan List : " file;
-read -p "Threads ( Default 10 ) : "  t;
-
-if [[ $t="" ]]; then
-	t=10;
-fi
-
 
 ekse(){
 	bwa=$(dig +short $line | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"| head -1)
@@ -34,7 +28,6 @@ fi
 n=1
 IFS=$'\r\n'
 for line in $(cat $file); do
-	f=$(expr $n % $t)
 	cekbaris=$(cat $file | wc -l)
 	ekse $file $n &
 	n=$[$n+1]
