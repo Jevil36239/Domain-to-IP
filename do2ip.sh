@@ -22,13 +22,20 @@ fi
 
 
 ekse(){
-	host "$line"|grep " has address "|cut -d" " -f4 |  tee -a resultip.txt
+	bwa=$(dig +short $line | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"| head -1)
+	if [ -n "$bwa" ]; then
+    echo "-$2/$cekbaris- $bwa" 
+    echo $bwa >> resultip.txt
+else
+	echo "-$2/$cekbaris- Failed" 
+fi
 }
 
 n=1
 IFS=$'\r\n'
 for line in $(cat $file); do
 	f=$(expr $n % $t)
+	cekbaris=$(cat $file | wc -l)
 	ekse $file $n &
 	n=$[$n+1]
   done
